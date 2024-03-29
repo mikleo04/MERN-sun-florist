@@ -2,7 +2,6 @@ import express, { request, response } from 'express';
 import { PORT, mongoDBURL } from './config.js';
 import mongose from 'mongoose';
 import { Flower } from './models/FlowerModel.js';
-import * as async_hooks from "async_hooks";
 
 const app = express();
 
@@ -50,7 +49,7 @@ app.get('/flowers', async (request, response) => {
         const flowers = await Flower.find({});
 
         return response.status(200).json({
-            message: "Successfully get data",
+            message: 'Successfully get data',
             count: flowers.length,
             data: flowers
         });
@@ -67,11 +66,11 @@ app.get('/flowers/:id', async (request, response) => {
         const flower = await Flower.findById(id);
 
         if (!flower) {
-            return response.status(404).send({message: "Data not found"});
+            return response.status(404).send({message: 'Data not found'});
         }
 
         return response.status(200).json({
-            message: "Successfully get data",
+            message: 'Successfully get data',
             data: flower
         });
     } catch (error) {
@@ -100,7 +99,7 @@ app.put('/flowers/:id', async (request, response) => {
         if (!result) {
             return response.status(404).json({message: 'Data not found'});
         }
-        return response.status(200).send({message: "Successfully update data"});
+        return response.status(200).send({message: 'Successfully update data'});
     } catch (error) {
         console.log(error.message);
         response.status(500).send({error: error.message});
@@ -108,16 +107,15 @@ app.put('/flowers/:id', async (request, response) => {
 });
 
 // route for delete flower by id
-
 app.delete('/flowers/:id', async (request, response) => {
     const { id } = request.params;
 
     const result = await Flower.findByIdAndDelete(id);
 
     if (!result) {
-        return response.status(404).send({message: "Data not found"});
+        return response.status(404).send({message: 'Data not found'});
     }
-    return response.status(200).send({message: "Successfully delete data"});
+    return response.status(200).send({message: 'Successfully delete data'});
 })
 
 mongose
