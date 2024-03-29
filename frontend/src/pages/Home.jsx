@@ -44,6 +44,7 @@ const Home = () => {
                                 <th scope="col" className='px-6 py-3'>Description</th>
                                 <th scope="col" className='px-6 py-3'>Price</th>
                                 <th scope="col" className='px-6 py-3'>Stock</th>
+                                <th scope="col" className='px-6 py-3'>Image</th>
                                 <th scope="col" className='px-6 py-3'>Actions</th>
                             </tr>
                         </thead>
@@ -65,6 +66,9 @@ const Home = () => {
                                         </td>
                                         <td className='px-6 py-4'>
                                             {flower.stock}
+                                        </td>
+                                        <td className='px-6 py-4'>
+                                            <img src={`http://localhost:8080/images/${flower.image}`} alt='image'/>
                                         </td>
                                         <td className='px-6 py-4'>
                                             <div className='flex justify-start gap-x-4'>
