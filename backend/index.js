@@ -107,6 +107,19 @@ app.put('/flowers/:id', async (request, response) => {
     }
 });
 
+// route for delete flower by id
+
+app.delete('/flowers/:id', async (request, response) => {
+    const { id } = request.params;
+
+    const result = await Flower.findByIdAndDelete(id);
+
+    if (!result) {
+        return response.status(404).send({message: "Data not found"});
+    }
+    return response.status(200).send({message: "Successfully delete data"});
+})
+
 mongose
     .connect(mongoDBURL)
         .then(() => {
