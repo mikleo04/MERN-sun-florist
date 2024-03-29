@@ -9,6 +9,7 @@ const UpdateFLower = () => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [stock, setStock] = useState('');
+    const [image, setImage] = useState();
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
@@ -34,15 +35,15 @@ const UpdateFLower = () => {
     }, []);
 
     const handleUpdateFLower = () => {
-        const data = {
-            name,
-            description,
-            price,
-            stock
-        };
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('description', description);
+        formData.append('price', price);
+        formData.append('stock', stock);
+        formData.append('image', image);
         setLoading(true);
         axios
-            .put(`http://localhost:8080/flowers/${id}`, data)
+            .put(`http://localhost:8080/flowers/${id}`,formData)
             .then(() => {
                 setLoading(false);
                 navigate('/');
@@ -68,6 +69,7 @@ const UpdateFLower = () => {
                     <input type='number' value={price} onChange={(e) => setPrice(e.target.value)} className='border-2 border-gray-500 px-4 py-2 w-full'/>
                     <label className='text-xl mr-4 text-gray-500'>Stock</label>
                     <input type='number' value={stock} onChange={(e) => setStock(e.target.value)} className='border-2 border-gray-500 px-4 py-2 w-full'/>
+                    <input type='file' onChange={(e) => setImage(e.target.files[0])}/>
                 </div>
                 <button className='p-2 bg-sky-300 m-8' onClick={handleUpdateFLower}>
                     Save
