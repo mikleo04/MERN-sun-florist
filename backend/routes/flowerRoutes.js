@@ -91,7 +91,19 @@ router.put('/:id', async (request, response) => {
         }
 
         const { id } = request.params;
-        const result = await Flower.findByIdAndUpdate(id, request.body);
+
+        const updateFlower = {
+            name: request.body.name,
+            description: request.body.description,
+            price: request.body.price,
+            stock: request.body.stock,
+        };
+
+        if (request.file) {
+            updateFlower.image = request.file.name;
+        }
+
+        const result = await Flower.findByIdAndUpdate(id, updateFlower);
 
         if (!result) {
             return response.status(404).json({message: 'Data not found'});
