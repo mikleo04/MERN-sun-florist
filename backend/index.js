@@ -2,11 +2,21 @@ import express, { request, response } from 'express';
 import { PORT, mongoDBURL } from './config.js';
 import mongoose from 'mongoose';
 import flowerRoutes from './routes/flowerRoutes.js';
+import cors from 'cors';
 
 const app = express();
 
 //middleware for parsing request body
 app.use(express.json());
+
+//middleware for handling cors policy
+app.use(
+    cors({
+        origin: 'http://localhost:8080',
+        methods: ['GET', 'POST', 'UPDATE', 'DELETE'],
+        allowedHeaders: ['Content-Type'],
+    })
+);
 
 app.get('/', (request, response) => {
     console.log(request);
