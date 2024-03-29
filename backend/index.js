@@ -2,6 +2,7 @@ import express, { request, response } from 'express';
 import { PORT, mongoDBURL } from './config.js';
 import mongose from 'mongoose';
 import { Flower } from './models/FlowerModel.js';
+import * as async_hooks from "async_hooks";
 
 const app = express();
 
@@ -59,11 +60,15 @@ app.get('/flowers', async (request, response) => {
     }
 });
 
-// route for get one book by id
-app.get('/flowers/:id', async(request, response) => {
+// route for get one flower by id
+app.get('/flowers/:id', async (request, response) => {
     try {
         const { id } = request.params;
         const flower = await Flower.findById(id);
+
+        if (!flower) {
+            return response.status(404).send({message: "Data not found"});
+        }
 
         return response.status(200).json({
             message: "Successfully get data",
@@ -71,7 +76,34 @@ app.get('/flowers/:id', async(request, response) => {
         });
     } catch (error) {
         console.log(error.message);
-        return response.status(500).send({error: error.message})
+        return response.status(500).send({error: error.message});
+    }
+});
+
+//route for update flower by id
+app.put('/flowers/:id', async (request, response) => {
+    try {
+        if (
+            !request.body.name ||
+            !request.body.description||
+            !request.body.price ||
+            !request.body.stock
+        ) {
+            return response.status(404).send({
+                message: 'Send all required fields: name, description, price, stock',
+            });
+        }
+
+        const { id } = request.params;
+        const result = await Flower.findByIdAndUpdate(id, request.body);
+
+        if (!result) {
+            return response.status(404).json({message: 'Data not found'});
+        }
+        return response.status(200).send({message: "Successfully update data"});
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({error: error.message});
     }
 });
 
