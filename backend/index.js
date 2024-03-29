@@ -1,4 +1,4 @@
-import express, { response } from 'express';
+import express, { request, response } from 'express';
 import { PORT, mongoDBURL } from './config.js';
 import mongose from 'mongoose';
 import { Flower } from './models/FlowerModel.js';
@@ -13,6 +13,7 @@ app.get('/', (request, response) => {
     return response.status(234).send('Welcome back broo');
 });
 
+// route for create flower 
 app.post('/flowers', async (request, response) => {
     try {
         if (
@@ -40,7 +41,23 @@ app.post('/flowers', async (request, response) => {
         console.log(error.message);
         response.status(500).send({message: error.message});
     }
-})
+});
+
+// route for get all flower from db
+app.get('/flowers', async (request, response) => {
+    try {
+        const flowers = await Flower.find({});
+
+        return response.status(200).json({
+            message: "Successfully get data",
+            count: flowers.length,
+            data: flowers
+        });
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({error: error.message});
+    }
+});
 
 mongose
     .connect(mongoDBURL)
