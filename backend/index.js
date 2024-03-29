@@ -59,6 +59,22 @@ app.get('/flowers', async (request, response) => {
     }
 });
 
+// route for get one book by id
+app.get('/flowers/:id', async(request, response) => {
+    try {
+        const { id } = request.params;
+        const flower = await Flower.findById(id);
+
+        return response.status(200).json({
+            message: "Successfully get data",
+            data: flower
+        });
+    } catch (error) {
+        console.log(error.message);
+        return response.status(500).send({error: error.message})
+    }
+});
+
 mongose
     .connect(mongoDBURL)
         .then(() => {
