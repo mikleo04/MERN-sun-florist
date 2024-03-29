@@ -17,11 +17,18 @@ router.post('/', async (request, response) => {
             });
         }
 
+        if (!request.file) {
+            return response.status(400).send({
+                message: 'Image must be uploaded',
+            });
+        }
+
         const newFlower = {
             name: request.body.name,
             description: request.body.description,
             price: request.body.price,
             stock: request.body.stock,
+            image: request.file.filename,
         };
 
         const flower = await Flower.create(newFlower);
