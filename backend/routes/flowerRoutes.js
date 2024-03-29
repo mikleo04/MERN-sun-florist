@@ -100,7 +100,7 @@ router.put('/:id', async (request, response) => {
         };
 
         if (request.file) {
-            updateFlower.image = request.file.name;
+            updateFlower.image = request.file.filename;
         }
 
         const result = await Flower.findByIdAndUpdate(id, updateFlower);
