@@ -1,16 +1,16 @@
 import express, { request, response } from 'express';
 import { PORT, mongoDBURL } from './config.js';
-import mongose from 'mongoose';
+import mongoose from 'mongoose';
 import { Flower } from './models/FlowerModel.js';
 
 const app = express();
 
-//midleware for parsing request body
+//middleware for parsing request body
 app.use(express.json());
 
 app.get('/', (request, response) => {
     console.log(request);
-    return response.status(234).send('Welcome back broo');
+    return response.status(234).send('Welcome back bro');
 });
 
 // route for create flower 
@@ -118,7 +118,7 @@ app.delete('/flowers/:id', async (request, response) => {
     return response.status(200).send({message: 'Successfully delete data'});
 })
 
-mongose
+mongoose
     .connect(mongoDBURL)
         .then(() => {
             console.log('App successfully connected to database');
