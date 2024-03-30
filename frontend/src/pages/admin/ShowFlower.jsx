@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import axios from "axios";
-import BackButton from "../components/BackButton.jsx";
-import Spin from "../components/Spin.jsx";
+import BackButton from "../../components/BackButton.jsx";
+import Spin from "../../components/Spin.jsx";
 
 const ShowFlower = () => {
     const [flower, setFlower] = useState({});

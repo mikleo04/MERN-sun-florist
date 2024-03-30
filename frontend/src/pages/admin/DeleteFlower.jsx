@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import BackButton from "../components/BackButton.jsx";
-import Spin from "../components/Spin.jsx";
+import BackButton from "../../components/BackButton.jsx";
+import Spin from "../../components/Spin.jsx";
 import {IconAlertCircle, IconX} from "@tabler/icons-react";
 
 const DeleteFlower = () => {

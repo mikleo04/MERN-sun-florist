@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import Spin from '../components/Spin.jsx';
+import Spin from '../../components/Spin.jsx';
 import { Link } from 'react-router-dom';
 import {IconEdit, IconEye, IconPlus, IconTrash} from "@tabler/icons-react";
 

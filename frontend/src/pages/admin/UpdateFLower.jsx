@@ -1,17 +1,11 @@
-import React, {useState} from 'react';
-import {useNavigate} from "react-router-dom";
+import React, {useState, useEffect} from 'react';
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import BackButton from "../components/BackButton.jsx";
-import Spin from "../components/Spin.jsx";
-import {
-    IconArrowBack,
-    IconChevronCompactLeft,
-    IconChevronsLeft,
-    IconCloudCheck,
-    IconCloudUpload
-} from "@tabler/icons-react";
+import BackButton from "../../components/BackButton.jsx";
+import Spin from "../../components/Spin.jsx";
+import {IconChevronsLeft, IconCloudCheck, IconCloudUpload} from "@tabler/icons-react";
 
-const CreateFlower = () => {
+const UpdateFLower = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -20,8 +14,28 @@ const CreateFlower = () => {
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
-    const handeSaveFLower = () => {
+    const {id} = useParams();
 
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get(`http://localhost:8080/flowers/${id}`)
+            .then((response) => {
+                setName(response.data.data.name);
+                setDescription(response.data.data.description);
+                setPrice(response.data.data.price);
+                setStock(response.data.data.stock);
+                setLoading(false);
+            })
+            .catch((error) => {
+                setLoading(false);
+                alert('An error happened, please try letter')
+                console.log(error)
+            })
+
+    }, []);
+
+    const handleUpdateFLower = () => {
         const formData = new FormData();
         formData.append('name', name);
         formData.append('description', description);
@@ -30,7 +44,7 @@ const CreateFlower = () => {
         formData.append('image', image);
         setLoading(true);
         axios
-            .post('http://localhost:8080/flowers', formData)
+            .put(`http://localhost:8080/flowers/${id}`,formData)
             .then(() => {
                 setLoading(false);
                 navigate('/');
@@ -43,12 +57,12 @@ const CreateFlower = () => {
 
     return (
         <div className='p-4 flex justify-center'>
-            <BackButton/>
+           <BackButton />
             {loading ? <Spin/> : ''}
             <div
                 className='w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700'>
                 <div className='space-y-6'>
-                    <h5 className="text-xl font-medium text-gray-900 dark:text-white text-center">Add New Flower</h5>
+                    <h5 className="text-xl font-medium text-gray-900 dark:text-white text-center">Update Flower</h5>
 
                     <label htmlFor="name"
                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
@@ -99,7 +113,7 @@ const CreateFlower = () => {
                         </label>
                     </div>
 
-                    <button type="submit" onClick={handeSaveFLower}
+                    <button type="submit" onClick={handleUpdateFLower}
                             className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Save
                     </button>
@@ -109,4 +123,4 @@ const CreateFlower = () => {
     );
 };
 
-export default CreateFlower;
+export default UpdateFLower;

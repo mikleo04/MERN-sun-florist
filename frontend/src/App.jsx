@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Routes, Route} from 'react-router-dom';
-import Home from "./pages/Home.jsx";
-import ShowFlower from "./pages/ShowFlower.jsx";
-import CreateFlower from "./pages/CreateFlower.jsx";
-import UpdateFLower from "./pages/UpdateFLower.jsx";
-import DeleteFlower from "./pages/DeleteFlower.jsx";
+import Home from "./pages/admin/Home.jsx";
+import ShowFlower from "./pages/admin/ShowFlower.jsx";
+import CreateFlower from "./pages/admin/CreateFlower.jsx";
+import UpdateFLower from "./pages/admin/UpdateFLower.jsx";
+import DeleteFlower from "./pages/admin/DeleteFlower.jsx";
 
 class App extends Component {
     render() {
