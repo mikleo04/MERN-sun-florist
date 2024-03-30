@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import BackButton from "../../components/BackButton.jsx";
-import Spin from "../../components/Spin.jsx";
-import {IconAlertCircle, IconX} from "@tabler/icons-react";
+import {IconAlertCircle} from "@tabler/icons-react";
 
 const DeleteFlower = () => {
     const [loading, setLoading] = useState(false);
@@ -16,7 +14,7 @@ const DeleteFlower = () => {
             .delete(`http://localhost:8080/flowers/${id}`)
             .then(() => {
                 setLoading(false);
-                navigate('/');
+                navigate('/admin');
             })
             .catch((error) => {
                 setLoading(false);
@@ -35,7 +33,7 @@ const DeleteFlower = () => {
                         ?</h5>
                     <span className="text-sm text-gray-500 dark:text-gray-400">Choose cancel if you don't delete this data !</span>
                     <div className="flex mt-4 md:mt-6">
-                        <button type="button" onClick={() => navigate('/')}
+                        <button type="button" onClick={() => navigate('/admin')}
                                 className="text-red-700 border border-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:focus:ring-red-800">
                             Cancel
                         </button>
