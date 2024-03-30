@@ -13,10 +13,10 @@ class App extends Component {
             <Routes>
                 <Route path='/' element={ <HomePage/> } />
                 <Route path='/admin' element={ <Home/> } />
-                <Route path='/flowers/details/:id' element={ <ShowFlower/> } />
-                <Route path='/flowers/create' element={ <CreateFlower/> } />
-                <Route path='/flowers/update/:id' element={ <UpdateFLower/> } />
-                <Route path='/flowers/delete/:id' element={ <DeleteFlower/> } />
+                <Route path='/admin/flowers/details/:id' element={ <ShowFlower/> } />
+                <Route path='/admin/flowers/create' element={ <CreateFlower/> } />
+                <Route path='/admin/flowers/update/:id' element={ <UpdateFLower/> } />
+                <Route path='/admin/flowers/delete/:id' element={ <DeleteFlower/> } />
             </Routes>
         );
     }
