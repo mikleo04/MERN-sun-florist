@@ -25,41 +25,46 @@ const ShowFlower = () => {
     }, []);
 
     return (
-        <div className='p-4'>
+        <div className='flex justify-center items-center h-screen'>
             <BackButton/>
-            <h1 className='text-3xl my-4'>Show FLower</h1>
             {
                 loading ? (
                     <Spin/>
                 ): (
-                    <div className='flex flex-col border-2 border-sky-400 rounded-xl w-fit p-4'>
-                        <div className='my-4'>
-                            <span className='text-xl mr-4 text-gray-500'>Id</span>
-                            <span>{flower._id}</span>
-                        </div>
-                        <div className='my-4'>
-                            <span className='text-xl mr-4 text-gray-500'>Name</span>
-                            <span>{flower.name}</span>
-                        </div>
-                        <div className='my-4'>
-                            <span className='text-xl mr-4 text-gray-500'>Description</span>
-                            <span>{flower.description}</span>
-                        </div>
-                        <div className='my-4'>
-                            <span className='text-xl mr-4 text-gray-500'>Price</span>
-                            <span>{flower.price}</span>
-                        </div>
-                        <div className='my-4'>
-                            <span className='text-xl mr-4 text-gray-500'>Stock</span>
-                            <span>{flower.stock}</span>
-                        </div>
-                        <div className='my-4'>
-                            <span className='text-xl mr-4 text-gray-500'>Create time</span>
-                            <span>{new Date(flower.createdAt).toString()}</span>
-                        </div>
-                        <div className='my-4'>
-                            <span className='text-xl mr-4 text-gray-500'>Update time</span>
-                            <span>{new Date(flower.updatedAt).toString()}</span>
+                    <div className="flex flex-col bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <img className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src={`http://localhost:8080/images/${flower.image}`} alt="Image"/>
+                        <div className="flex flex-col justify-between p-4 leading-normal">
+                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{flower.name}</h5>
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>Description</td>
+                                    <td>:</td>
+                                    <td>{flower.description}</td>
+                                </tr>
+                                <tr>
+                                    <td>Stock</td>
+                                    <td>:</td>
+                                    <td>{flower.stock} bucket</td>
+                                </tr>
+                                <tr>
+                                    <td>Price</td>
+                                    <td>:</td>
+                                    <td>Rp. {flower.price}</td>
+                                </tr>
+                                <tr>
+                                    <td>Created</td>
+                                    <td>:</td>
+                                    <td>{new Date(flower.createdAt).toString()}</td>
+                                </tr>
+                                <tr>
+                                    <td>Updated</td>
+                                    <td>:</td>
+                                    <td>{new Date(flower.updatedAt).toString()}</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 )
